@@ -1,4 +1,12 @@
 // 
+//Group：
+//Jingqi Huang
+//Puyi He
+//Game name： Shiningrun！
+//Production time: 40-50 hours
+//Production share:
+//Jingqi Huang: All Artwork, and resource integration required by the game. And the production and prototype of Scene 1.
+//Puyi He: Code, code, and modification of  Menu, Scene 2 and Scene 3, the main technical staff.
 //Here's Johnny:
 //https://www.myinstants.com/en/instant/heres-johnny/
 //https://movie-sounds.org/horror-movie-samples/quotes-with-sound-clips-from-the-shining-1980/come-and-play-with-us-danny-forever-and-ever-and-ever
