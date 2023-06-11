@@ -76,8 +76,15 @@ class Level2_1 extends Phaser.Scene {
     // layer2.setCollisionByProperty({ collides: true });
     // this.physics.add.collider(this.johnny_wife, layer1);
     // this.physics.add.collider(this.johnny_wife, layer2);
+    let _rx = this.r(250, 300);
     for (let i = 0; i < this.gn; i++) {
-      this.gs.push(this.physics.add.image(Math.round(Math.random() * (1411 - 400 + 1) + 400), 305, 'gap' + (parseInt(Math.random() * 3) + 1)).setScale(0.8));
+      if (i == 0) {
+        this.gs.push(this.physics.add.image(_rx, 305, 'gap' + (parseInt(Math.random() * 3) + 1)).setScale(0.8));
+        
+      } else {
+        this.gs.push(this.physics.add.image(_rx, 305, 'gap' + (parseInt(Math.random() * 3) + 1)).setScale(0.8));
+      }
+      _rx += this.r(200, 250);
     }
 
     // this.p1 = this.physics.add.image(400, 285, 'gap3');
@@ -148,7 +155,7 @@ class Level2_1 extends Phaser.Scene {
         this.h2.volume = 0.3;
       }
       
-      if (this.johnny_wife.x >= 1373) {
+      if (this.johnny_wife.x >= 1173) {
         this.v = 0;
         this.v_ = 0;
         this.winner = 'johnny wifi';
@@ -187,5 +194,9 @@ class Level2_1 extends Phaser.Scene {
       }
     }
      console.log(this.johnny_wife.x);
+  }
+  r(begin,end){
+    var num = Math.round(Math.random()*(end-begin)+begin);
+    return num;
   }
 }

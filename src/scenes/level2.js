@@ -76,8 +76,15 @@ class Level2 extends Phaser.Scene {
     // layer2.setCollisionByProperty({ collides: true });
     // this.physics.add.collider(this.johnny_wife, layer1);
     // this.physics.add.collider(this.johnny_wife, layer2);
+    let _rx = this.r(200, 300);
     for (let i = 0; i < this.gn; i++) {
-      this.gs.push(this.physics.add.image(Math.round(Math.random() * (1411 - 400 + 1) + 400), 305, 'gap' + (parseInt(Math.random() * 3) + 1)).setScale(0.8));
+      if (i == 0) {
+        this.gs.push(this.physics.add.image(_rx, 305, 'gap' + (parseInt(Math.random() * 3) + 1)).setScale(0.8));
+        
+      } else {
+        this.gs.push(this.physics.add.image(_rx, 305, 'gap' + (parseInt(Math.random() * 3) + 1)).setScale(0.8));
+      }
+      _rx += this.r(250, 350);
     }
 
     // this.p1 = this.physics.add.image(400, 285, 'gap3');
@@ -190,4 +197,8 @@ class Level2 extends Phaser.Scene {
     }
      
   }
+  r(begin,end){
+    var num = Math.round(Math.random()*(end-begin)+begin);
+    return num;
+}
 }

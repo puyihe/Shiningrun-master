@@ -4,6 +4,11 @@ class Level3 extends Phaser.Scene {
     this.VEL = 130;
     this.winner = null;
     this.wifi_out = false;
+    this.ix = 80
+    this.iy = 390
+    this.path = []
+    this.idx = 0
+    this.opt = 0
   }
   preload() {
     this.load.image('tiles', './assets/scene3/第三场的地图/taiga_ [resources].png');
@@ -23,7 +28,7 @@ class Level3 extends Phaser.Scene {
     const layer3 = map.createLayer("物品", [tileset1, tileset2], 0, 0);
 
 
-    this.johnny_ = this.physics.add.sprite( 50, 390, 'johnny');
+    this.johnny_ = this.physics.add.sprite( 50, 430, 'johnny');
     this.johnny_.scale = 0.5;
     this.dani_ = this.physics.add.sprite(80, 360, 'dani');
 
@@ -109,21 +114,28 @@ class Level3 extends Phaser.Scene {
           } 
           this.direction.normalize()
           this.dani_.setVelocity(this.VEL * this.direction.x, this.VEL *this.direction.y);
-    
-          const x = Math.random();
-          const y = Math.random();
-          if (x > 0.25) {
-            this.direction1.x = 1;
+        
+        if (this.path.length == 0 || this.path.length > 0 && this.dani_.x != this.path[this.path.length - 1][0] && this.dani_.y != this.path[this.path.length - 1][1]) {
+          
+        }
+        this.path.push([this.dani_.x, this.dani_.y]);
+        this.path = this.remove(this.path)
+        if (this.opt == 0) {
+          if (Math.abs(this.johnny_.x - this.ix) <= 2.0) {
+            this.opt = 1;
           } else {
-            this.direction1.x = -1;
-          }
-          if (y > 0.55) {
-            this.direction1.y = -1;
+            this.johnny_.setVelocity(this.VEL * 1, 0);
+          } 
+        } else if (this.opt == 1) {
+          if (Math.abs(this.johnny_.y - this.iy) <= 2.0) {
+            this.opt = 2;
           } else {
-            this.direction1.y = 1;
+            this.johnny_.setVelocity(0, - this.VEL * 1);
           }
-          this.direction1.normalize()
-          this.johnny_.setVelocity(this.VEL * this.direction1.x, this.VEL * this.direction1.y);
+        } else if (this.opt == 2) {
+          const _pos = this.path.shift();
+          this.johnny_.setPosition(_pos[0], _pos[1])
+        }
     
           const dis = Math.sqrt( Math.pow(Math.abs(this.johnny_.x - this.dani_.x), 2) + 
                                  Math.pow(Math.abs(this.johnny_.y - this.dani_.y), 2)  )
@@ -162,14 +174,33 @@ class Level3 extends Phaser.Scene {
           this.winner = null;
           this.bgm.stop();
           this.wifi_out = false;
+          this.path = []
+          this.idx = 0
+          this.opt = 0
           this.scene.start('level3Scene');
+          
         } else if (keyE.isDown) {
           this.winner = null;
           this.bgm.stop();
           this.wifi_out = false;
+          this.path = []
+          this.idx = 0
+          this.opt = 0
           this.scene.start('menuScene');
         } 
       }
         
   }
+  remove (arr)  {
+		var newArr =[];
+		newArr = [...arr];
+		for(var i = 0 ;i<newArr.length-1;i++){
+			if(newArr[i] == newArr[i+1]){
+				newArr.remove(i);
+				i--;
+			}
+		}
+		return newArr;
+	}
+
 }
